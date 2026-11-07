@@ -1,0 +1,34 @@
+[
+  {
+    "id": "not-an-hacker",
+    "index": "01",
+    "handle": "Not_An_Hacker",
+    "role": "Co-Founder",
+    "linkedin": "https://www.linkedin.com/in/placeholder-not-an-hacker",
+    "github": "https://github.com/placeholder-not-an-hacker"
+  },
+  {
+    "id": "adxd3459",
+    "index": "02",
+    "handle": "ADXD3459",
+    "role": "Co-Founder",
+    "linkedin": "https://www.linkedin.com/in/placeholder-adxd3459",
+    "github": "https://github.com/placeholder-adxd3459"
+  },
+  {
+    "id": "sapphire",
+    "index": "03",
+    "handle": "Sapphire",
+    "role": "Co-Founder",
+    "linkedin": "https://www.linkedin.com/in/placeholder-sapphire",
+    "github": "https://github.com/placeholder-sapphire"
+  },
+  {
+    "id": "sensei619",
+    "index": "04",
+    "handle": "Sensei619",
+    "role": "Co-Founder",
+    "linkedin": "https://www.linkedin.com/in/placeholder-sensei619",
+    "github": "https://github.com/placeholder-sensei619"
+  }
+]

@@ -1,0 +1,22 @@
+---
+layout: layouts/page.njk
+title: The Pack
+description: "The four Foxxxes: co-founders of PurpleFoxxx."
+---
+
+{% from "partials/label-bar.njk" import labelBar %}
+
+<div class="frame">
+  {{ labelBar("03 / The Pack", "Four Co-Founders", site.location) }}
+
+  <h1 class="font-display text-display-xl leading-none" data-reveal="words">
+    The Foxxxes
+  </h1>
+  <p class="mt-8 font-sans font-light text-statement max-w-3xl" data-reveal="up">
+    Four co-founders who came up through the competition circuit together and now build labs and run events as one pack.
+  </p>
+
+  <div class="mt-20 md:mt-28">
+    {% include "partials/pack.njk" %}
+  </div>
+</div>

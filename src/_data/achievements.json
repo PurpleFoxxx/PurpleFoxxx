@@ -1,0 +1,84 @@
+[
+  {
+    "id": "imperative-cyber-labs-2025",
+    "event": "Imperative Cyber Labs: CTF Challenge 2025",
+    "host": "Imperative Business Ventures × Cyber Secured India × Security BSides Mumbai",
+    "date": "2025-05-01",
+    "rank": "1st Rank",
+    "tier": "high"
+  },
+  {
+    "id": "bsides-mumbai-2025",
+    "event": "BSides Mumbai CTF 2025",
+    "host": "Security BSides Mumbai",
+    "date": "2025-06-01",
+    "rank": "Top 20",
+    "tier": "med"
+  },
+  {
+    "id": "xploitathon-2025",
+    "event": "Xploitathon",
+    "host": "SIES Graduate School of Technology",
+    "date": "2025-09-01",
+    "rank": "3rd Rank",
+    "tier": "low"
+  },
+  {
+    "id": "zephyr-2025",
+    "event": "Zephyr Capture the Flag",
+    "host": "Thakur College of Engineering and Technology",
+    "date": "2025-09-15",
+    "rank": "3rd Rank",
+    "tier": "low"
+  },
+  {
+    "id": "rait-ctf-2026",
+    "event": "RAIT-CTF (Capture The Flag)",
+    "host": "D.Y. Patil Ramrao Adik Institute of Technology (RAIT)",
+    "date": "2026-01-01",
+    "rank": "Top 15",
+    "tier": "med"
+  },
+  {
+    "id": "iiit-surat-2026",
+    "event": "Capture the Flag Challenge",
+    "host": "Indian Institute of Information Technology (IIIT), Surat",
+    "date": "2026-02-01",
+    "rank": "2nd Rank",
+    "tier": "high"
+  },
+  {
+    "id": "cyber-matrix-2026-team1",
+    "event": "Cyber Matrix CTF",
+    "host": "Shah and Anchor Kutchhi Engineering College",
+    "date": "2026-02-10",
+    "rank": "2nd Rank",
+    "tier": "med",
+    "note": "Team 1"
+  },
+  {
+    "id": "cyber-matrix-2026-team2",
+    "event": "Cyber Matrix CTF",
+    "host": "Shah and Anchor Kutchhi Engineering College",
+    "date": "2026-02-10",
+    "rank": "3rd Rank",
+    "tier": "med",
+    "note": "Team 2"
+  },
+  {
+    "id": "xploitathon-2026",
+    "event": "Xploitathon",
+    "host": "SIES Graduate School of Technology",
+    "date": "2026-03-01",
+    "rank": "2nd Rank",
+    "tier": "med"
+  },
+  {
+    "id": "technovate-2026",
+    "event": "Technovate CTF",
+    "host": "D.Y. Patil Ramrao Adik Institute of Technology (RAIT)",
+    "date": "2026-04-01",
+    "rank": "2nd Rank",
+    "tier": "med"
+  }
+]

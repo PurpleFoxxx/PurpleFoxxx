@@ -1,0 +1,34 @@
+---
+layout: layouts/page.njk
+title: Scoreboard
+description: "Complete competitive CTF record of PurpleFoxxx across 2025 and 2026."
+---
+
+{% from "partials/label-bar.njk" import labelBar %}
+{% from "partials/ledger.njk" import ledger %}
+
+<div class="frame">
+  {{ labelBar("02 / Scoreboard", "Competitive Archive", (achievements | length) ~ " finishes · 2025 to 2026") }}
+
+  <h1 class="font-display text-display-xl leading-none" data-reveal="words">
+    Scoreboard Archive
+  </h1>
+  <p class="mt-8 font-sans font-light text-statement max-w-3xl" data-reveal="up">
+    Every recorded finish from our seasons competing on the board.
+  </p>
+
+  {% set grouped = achievements | byYear %}
+  <div class="mt-20 md:mt-28 space-y-20 md:space-y-28">
+    {% for g in grouped %}
+      <section>
+        <div class="flex items-baseline justify-between pb-4 border-b border-rule mb-2">
+          <h2 class="font-display text-display leading-none">{{ g.year }}</h2>
+          <span class="font-mono text-label uppercase text-muted">
+            {{ g.items | length | pad }} {% if (g.items | length) == 1 %}entry{% else %}entries{% endif %}
+          </span>
+        </div>
+        {{ ledger(g.items) }}
+      </section>
+    {% endfor %}
+  </div>
+</div>

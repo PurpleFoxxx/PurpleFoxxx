@@ -1,0 +1,80 @@
+<div
+  id="site-menu"
+  class="menu-overlay fixed inset-0 z-50"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Site navigation"
+  aria-hidden="true"
+>
+  <!-- Click-outside backdrop on desktop -->
+  <div class="menu-backdrop absolute inset-0" data-menu-close aria-hidden="true"></div>
+
+  <!-- Full-screen on mobile (<768px), compact top-right popover card on laptop/desktop (>=768px) -->
+  <div class="menu-panel band relative flex flex-col justify-between">
+    <div class="flex items-center justify-between pb-4 border-b border-rule">
+      <span class="font-mono text-label uppercase text-muted">Navigation</span>
+
+      <button
+        type="button"
+        data-menu-close
+        data-menu-close-primary
+        aria-label="Close navigation menu"
+        class="inline-flex items-center gap-2 px-3 py-1.5 border border-fg/40 bg-fg/5 font-mono text-label uppercase text-fg hover:bg-accent hover:border-accent hover:text-white transition-colors"
+      >
+        <span class="text-sm leading-none" aria-hidden="true">×</span>
+        <span>Close</span>
+      </button>
+    </div>
+
+    <nav aria-label="Site pages" class="my-auto md:my-3 py-4 md:py-2">
+      <ul class="divide-y divide-rule border-b border-rule">
+        {% set navItems = [
+          { num: "01", label: "Index", href: "/" },
+          { num: "02", label: "Labs & Work", href: "/work/" },
+          { num: "03", label: "Scoreboard", href: "/achievements/" },
+          { num: "04", label: "The Pack", href: "/team/" },
+          { num: "05", label: "About", href: "/about/" }
+        ] %}
+        {% for item in navItems %}
+          <li>
+            <a
+              href="{{ item.href }}"
+              class="group py-3.5 md:py-2.5 flex items-baseline justify-between gap-4"
+              data-menu-close
+            >
+              <span class="font-display menu-link-title">
+                <span class="roll-link" data-label="{{ item.label }}">
+                  <span>{{ item.label }}</span>
+                </span>
+              </span>
+              <span class="font-mono text-label uppercase text-muted group-hover:text-accent transition-colors">
+                /{{ item.num }}
+              </span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <div class="pt-4 flex flex-col gap-3 font-mono text-label uppercase">
+      <button
+        type="button"
+        class="text-left text-muted hover:text-accent transition-colors truncate"
+        data-copy-email="{{ site.links.email }}"
+      >
+        {{ site.links.email }} [<span data-copy-status>copy</span>]
+      </button>
+      <div class="flex items-center justify-between text-muted pt-1">
+        <div class="flex items-center gap-5">
+          <a href="{{ site.links.github }}" target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
+            GitHub
+          </a>
+          <a href="{{ site.links.linkedin }}" target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
+            LinkedIn
+          </a>
+        </div>
+        <span>{{ site.location }}</span>
+      </div>
+    </div>
+  </div>
+</div>

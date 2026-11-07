@@ -1,0 +1,54 @@
+---
+layout: layouts/page.njk
+title: About
+description: "How PurpleFoxxx helps organizers run CTFs end to end and builds custom cyber labs for industry and colleges."
+---
+
+{% from "partials/label-bar.njk" import labelBar %}
+
+<div class="frame">
+  {{ labelBar("04 / Story", "About the Pack", "Est. " ~ site.est ~ " · " ~ site.location) }}
+
+  <h1 class="font-display text-display-xl leading-none" data-reveal="words">
+    Both Sides of the Terminal
+  </h1>
+
+  <div class="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-12 gap-10">
+    <div class="md:col-span-4 font-mono text-label uppercase text-muted space-y-2">
+      <p>The Foxxxes</p>
+      <p>{{ site.location }}</p>
+    </div>
+
+    <div class="md:col-span-8 space-y-6">
+      <p class="font-sans font-light text-statement" data-reveal="words">
+        We spent our early seasons competing in live CTFs. We saw what makes a great event and where things fall apart.
+      </p>
+      <p class="text-lede text-muted leading-relaxed max-w-2xl" data-reveal="up">
+        Hosting a competition shouldn't overwhelm the people organizing it. We take care of challenge design, hosting, and live support from start to finish.
+      </p>
+      <p class="text-lede text-muted leading-relaxed max-w-2xl" data-reveal="up">
+        We also build Boot2Root machines for security companies and full multi-OS cyber labs across Linux, Windows, and Android for colleges, and we're always ready for the next big build.
+      </p>
+    </div>
+  </div>
+
+  <section class="mt-24 md:mt-32">
+    {{ labelBar("05 / Scope", "What We Deliver", (site.skills | length) ~ " core areas") }}
+
+    <ol class="border-t border-rule">
+      {% for skill in site.skills %}
+        <li
+          class="py-7 md:py-9 border-b border-rule grid grid-cols-[4rem_1fr] md:grid-cols-[8rem_1fr] items-baseline gap-4"
+          data-reveal="up"
+        >
+          <span class="font-mono text-label uppercase text-accent">
+            /{{ loop.index | pad }}
+          </span>
+          <span class="font-display text-display-sm leading-none">
+            {{ skill }}
+          </span>
+        </li>
+      {% endfor %}
+    </ol>
+  </section>
+</div>

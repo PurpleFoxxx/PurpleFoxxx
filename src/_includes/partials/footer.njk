@@ -1,0 +1,55 @@
+<footer id="contact" class="band pt-24 md:pt-36 pb-12 border-t border-rule">
+  <div class="frame">
+    <div class="flex items-baseline justify-between font-mono text-label uppercase text-muted pb-4">
+      <span>Sign-off</span>
+      <span>{{ site.location }}</span>
+    </div>
+    <div class="h-px bg-rule rule-draw"></div>
+
+    <p
+      class="mt-12 md:mt-16 font-display italic text-display-xl tracking-tight max-w-6xl"
+      data-reveal="words"
+    >
+      {{ site.signoff }}
+    </p>
+
+    <div class="mt-20 md:mt-28 pt-8 border-t border-rule grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+      <div class="md:col-span-5">
+        <p class="font-mono text-label uppercase text-muted mb-2">Direct line (placeholder)</p>
+        <button
+          type="button"
+          class="font-display text-3xl md:text-4xl hover:text-accent transition-colors text-left"
+          data-copy-email="{{ site.links.email }}"
+        >
+          {{ site.links.email }}
+          <span class="block mt-1 font-mono text-label uppercase text-muted" data-copy-status>Click to copy address</span>
+        </button>
+      </div>
+
+      <div class="md:col-span-4 flex items-center gap-8 font-mono text-label uppercase">
+        <a
+          href="{{ site.links.github }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-accent transition-colors"
+        >
+          GitHub
+        </a>
+        <a
+          href="{{ site.links.linkedin }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-accent transition-colors"
+        >
+          LinkedIn
+        </a>
+        <a href="/work/" class="hover:text-accent transition-colors">Work</a>
+        <a href="/achievements/" class="hover:text-accent transition-colors">Scoreboard</a>
+      </div>
+
+      <div class="md:col-span-3 md:text-right font-mono text-label uppercase text-muted">
+        <p>{{ site.name }} · Est. {{ site.est }}</p>
+      </div>
+    </div>
+  </div>
+</footer>

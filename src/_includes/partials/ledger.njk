@@ -1,0 +1,53 @@
+{% macro ledger(items) %}
+<ol class="border-t border-rule">
+  {% for a in items %}
+    {% set r = a.rank | rankParts %}
+    {% set tier = a.rank | rankTier %}
+    <li
+      class="ledger-row grid grid-cols-[5.5rem_1fr_auto] md:grid-cols-[9rem_1.4fr_1.2fr_7.5rem] items-baseline gap-4 md:gap-8 py-6 md:py-8 border-b border-rule"
+      tabindex="0"
+      data-reveal="up"
+    >
+      <div class="font-display text-4xl md:text-6xl leading-none whitespace-nowrap">
+        {% if r.pre %}
+          <span class="font-mono text-label uppercase text-muted mr-1">{{ r.pre }}</span>
+        {% endif %}
+        <span>{{ r.num }}</span>
+        {% if r.suf %}
+          <span class="font-mono text-xs uppercase text-muted">{{ r.suf }}</span>
+        {% endif %}
+        <span class="tier-dot tier-{{ tier }}" title="{{ a.rank }}" aria-hidden="true"></span>
+        <span class="sr-only">({{ a.rank }})</span>
+      </div>
+
+      <div>
+        <div class="flex flex-wrap items-baseline gap-3">
+          <h3 class="font-sans font-light text-xl md:text-2xl tracking-tight">
+            {{ a.event }}
+          </h3>
+          {% if a.pick %}
+            <span class="font-mono text-[11px] uppercase px-2 py-0.5 border border-rule text-accent">
+              {{ a.pick }}
+            </span>
+          {% endif %}
+          {% if a.note %}
+            <span class="font-mono text-label uppercase text-muted">{{ a.note }}</span>
+          {% endif %}
+        </div>
+        <p class="mt-1 md:hidden text-xs text-muted">{{ a.host }}</p>
+      </div>
+
+      <p class="hidden md:block text-sm text-muted leading-snug">
+        {{ a.host }}
+      </p>
+
+      <time
+        class="font-mono text-label uppercase text-muted text-right whitespace-nowrap"
+        datetime="{{ a.date }}"
+      >
+        {{ a.date | monthYear }}
+      </time>
+    </li>
+  {% endfor %}
+</ol>
+{% endmacro %}

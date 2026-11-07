@@ -1,0 +1,105 @@
+---
+layout: layouts/page.njk
+title: Labs & Work
+description: "Boot2Root cyber labs built for security firms and college campuses, plus internal R&D by PurpleFoxxx."
+---
+
+{% from "partials/label-bar.njk" import labelBar %}
+
+<div class="frame">
+  {{ labelBar("01 / Portfolio", "Client Labs & In-House R&D", (work.clientWork | length) ~ " client labs · " ~ (work.projects | length) ~ " internal project") }}
+
+  <h1 class="font-display text-display-xl leading-none" data-reveal="words">
+    Labs &amp; Work
+  </h1>
+  <p class="mt-8 font-sans font-light text-statement max-w-3xl" data-reveal="up">
+    Custom cyber labs built for industry and colleges, alongside our own in-house tools.
+  </p>
+
+  {# Track I: Client Work #}
+  <section id="client-work" class="mt-24 md:mt-32 scroll-mt-28">
+    {{ labelBar("Part I / Client Work", "Industry & Campus Cyber Labs", (work.clientWork | length) ~ " delivered") }}
+
+    <div class="border-t border-rule">
+      {% for item in work.clientWork %}
+        <article class="py-12 md:py-16 border-b border-rule grid grid-cols-1 md:grid-cols-12 gap-8" data-reveal="up">
+          <div class="md:col-span-3 font-mono text-label uppercase space-y-2">
+            <p class="text-accent">{{ item.code }} · {{ item.scope }}</p>
+            <p class="text-fg">{{ item.client }}</p>
+            <p class="text-muted">{{ item.sector }}</p>
+            <p class="text-muted">{% if item.date %}{{ item.date | dateReadable }}{% else %}Delivered{% endif %}</p>
+          </div>
+
+          <div class="md:col-span-9">
+            <h2 class="font-display text-display-sm leading-none">
+              {{ item.title }}
+            </h2>
+            <p class="mt-5 font-display italic text-2xl md:text-3xl leading-snug max-w-2xl">
+              “{{ item.brief }}”
+            </p>
+            <p class="mt-4 text-muted leading-relaxed max-w-xl">
+              {{ item.summary }}
+            </p>
+
+            {% if item.topology %}
+              <div class="mt-6 pt-5 border-t border-rule flex flex-wrap items-center gap-3 font-mono text-label uppercase">
+                <span class="text-muted mr-1">Path //</span>
+                {% for node in item.topology %}
+                  <span class="px-3 py-1.5 border border-rule text-fg">
+                    0{{ loop.index }} {{ node }}
+                  </span>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {% for tag in item.stack %}
+                <li class="px-3 py-1.5 border border-rule font-mono text-label uppercase text-muted">
+                  {{ tag }}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  {# Track II: Internal Projects #}
+  <section id="projects" class="mt-24 md:mt-32 scroll-mt-28">
+    {{ labelBar("Part II / Internal Projects", "In-House R&D", "Active development") }}
+
+    <div class="border-t border-rule">
+      {% for proj in work.projects %}
+        <article class="py-12 md:py-16 border-b border-rule grid grid-cols-1 md:grid-cols-12 gap-8" data-reveal="up">
+          <div class="md:col-span-3 font-mono text-label uppercase space-y-2">
+            <p class="text-accent">{{ proj.code }} · {{ proj.category }}</p>
+            <p class="text-fg">Platforms: {{ proj.platforms | join(" · ") }}</p>
+            <p class="text-muted">
+              In development<span class="caret-blink" aria-hidden="true"></span>
+            </p>
+          </div>
+
+          <div class="md:col-span-9">
+            <h2 class="font-display text-display-sm leading-none">
+              {{ proj.title }}
+            </h2>
+            <p class="mt-5 font-display italic text-2xl md:text-3xl leading-snug max-w-2xl">
+              “{{ proj.brief }}”
+            </p>
+            <p class="mt-4 text-muted leading-relaxed max-w-xl">
+              {{ proj.summary }}
+            </p>
+            <ul class="mt-6 flex flex-wrap gap-2">
+              {% for tag in proj.stack %}
+                <li class="px-3 py-1.5 border border-rule font-mono text-label uppercase text-muted">
+                  {{ tag }}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+</div>

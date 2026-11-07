@@ -1,0 +1,44 @@
+{
+  "name": "PurpleFoxxx",
+  "tagline": "CTFs. Cyber Labs. Event Ops.",
+  "location": "Mumbai, India",
+  "est": "2025",
+  "description": "PurpleFoxxx builds custom Boot2Root cyber labs for industry and colleges, authors original CTF challenges, and runs competitions end to end.",
+  "statement": "We grew up in the heat of live CTFs. Now we build the labs, write the challenges, and run the events.",
+  "signoff": "Forged in competition. Built for the field.",
+  "disciplines": [
+    {
+      "n": "01",
+      "short": "CTF Challenges",
+      "title": "Original Challenge Design",
+      "meta": "Real Flaws · Clean Logic · Zero Guesswork",
+      "body": "Layered problems built by people who know how players think."
+    },
+    {
+      "n": "02",
+      "short": "Event Ops",
+      "title": "End-to-End CTF Management",
+      "meta": "Hosting · Scoreboard · Live Support",
+      "body": "We handle the servers, platform, and live ops so organizers can actually enjoy their own event."
+    },
+    {
+      "n": "03",
+      "short": "Cyber Labs",
+      "title": "Boot2Root & Campus Labs",
+      "meta": "Linux · Windows · Android · Active Directory",
+      "body": "Custom machines and lab suites for security firms and colleges, always pushing what a lab can be."
+    }
+  ],
+  "skills": [
+    "Custom CTF Challenge Authoring",
+    "End-to-End CTF Hosting & Live Ops",
+    "Active Directory & Boot2Root Labs",
+    "Multi-OS Campus Cyber Labs (Linux, Windows, Android)"
+  ],
+  "links": {
+    "_comment": "PLACEHOLDER: replace email, github, and linkedin with real URLs in this single block",
+    "email": "hello@purplefoxxx.dev",
+    "github": "https://github.com/purplefoxxx",
+    "linkedin": "https://www.linkedin.com/company/purplefoxxx"
+  }
+}

@@ -1,0 +1,67 @@
+User-agent: *
+Allow: /
+
+# Nothing to hide here. Mostly.
+Disallow:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# still scrolling?
+
+
+# good. recon is half the job.
+
+
+
+# a hint, since you made it this far:
+# the pack doesn't mark its own den.

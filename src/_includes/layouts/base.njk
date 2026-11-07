@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if title and title != "Home" %}{{ title }} · {{ site.name }}{% else %}{{ site.name }} · {{ site.tagline }}{% endif %}</title>
+  <meta name="description" content="{{ description or site.description }}">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="manifest" href="/site.webmanifest">
+  {% if title == "Home" %}
+  <link rel="preload" as="image" href="/assets/images/logo-dark.png">
+  {% endif %}
+
+  <!-- Fonts: Instrument Serif (display/numerals), Inter (body/statements), JetBrains Mono (labels/meta) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/tailwind.css">
+
+  <!-- Theme init: defaults to Paper (light) to match the editorial palette; honors saved choice -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("pfx-theme");
+        if (stored === "dark") document.documentElement.classList.add("dark");
+      } catch (_) {}
+    })();
+  </script>
+</head>
+<body class="bg-bg text-fg font-sans antialiased min-h-screen flex flex-col relative z-0 grain transition-colors duration-300">
+
+  {% include "partials/flag-drift.njk" %}
+  {% include "partials/header.njk" %}
+  {% include "partials/menu.njk" %}
+
+  <main class="flex-1">
+    {{ content | safe }}
+  </main>
+
+  {% include "partials/footer.njk" %}
+  {% include "partials/fox-run.njk" %}
+
+  <script src="/assets/js/theme.js" defer></script>
+  <script src="/assets/js/motion.js" defer></script>
+</body>
+</html>

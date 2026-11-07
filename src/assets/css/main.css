@@ -1,0 +1,634 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Design tokens — Paper / Ink / Night / Fox Purple
+   ============================================================ */
+:root {
+  --paper: #fbf7ef;
+  --ink: #0d0a12;
+  --night: #14061f;
+  --obsidian: #08040d;
+
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --muted: rgba(13, 10, 18, 0.56);
+  --rule: rgba(13, 10, 18, 0.16);
+  --accent: #8b23d9;
+  --card-bg: #f3ede0;
+  --card-fg: var(--ink);
+}
+
+.dark {
+  --bg: var(--night);
+  --fg: #f3eee6;
+  --muted: rgba(243, 238, 230, 0.56);
+  --rule: rgba(243, 238, 230, 0.16);
+  --accent: #c13fff;
+  --card-bg: #1c0a2b;
+  --card-fg: #f3eee6;
+}
+
+/* Contrast band (Intro, Builds, Footer): always deep dark with warm paper ink */
+.band {
+  --bg: var(--night);
+  --fg: #f3eee6;
+  --muted: rgba(243, 238, 230, 0.58);
+  --rule: rgba(243, 238, 230, 0.16);
+  --accent: #c13fff;
+  --card-bg: #1d0b2d;
+  --card-fg: #f3eee6;
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+.dark .band {
+  --bg: var(--obsidian);
+  --card-bg: #130720;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+html {
+  background-color: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   Editorial frame & rhythm
+   ============================================================ */
+.frame {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 4rem);
+}
+
+.section-pad {
+  padding-block: clamp(5.5rem, 13vh, 10.5rem);
+}
+
+/* Subtle paper grain overlay (pure inline SVG, zero network requests) */
+.grain {
+  position: relative;
+}
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   Rule draw-in & word slide-up reveals
+   ============================================================ */
+.rule-draw {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.in .rule-draw,
+.rule-draw.in {
+  transform: scaleX(1);
+}
+
+[data-reveal="words"] .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+[data-reveal="words"] .w > span {
+  display: inline-block;
+  transform: translateY(105%);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 32ms);
+}
+[data-reveal="words"].in .w > span {
+  transform: translateY(0);
+}
+
+[data-reveal="up"] {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal="up"].in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   Intro expanding PurpleFoxxx curtain + Fox crest
+   First visit: ~3.8s | Every refresh: ~2.5s
+   ============================================================ */
+.intro-curtain {
+  --intro-dur: 3.8s;
+  --intro-fade: 0.65s;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: #08040d;
+  color: #f3eee6;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  pointer-events: auto;
+  opacity: 1;
+  transition: opacity var(--intro-fade) cubic-bezier(0.22, 1, 0.36, 1);
+}
+.intro-curtain-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+.intro-curtain-logo {
+  width: clamp(5.5rem, 11vw, 8.75rem);
+  height: auto;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform: scale(0.62);
+  will-change: transform, opacity, filter;
+}
+.intro-curtain-word {
+  display: inline-block;
+  font-size: clamp(1.85rem, 4.5vw, 3.5rem);
+  letter-spacing: -0.03em;
+  transform: scale(0.68) scaleX(0.9);
+  opacity: 0;
+  white-space: nowrap;
+  will-change: transform, letter-spacing, opacity;
+}
+.intro-play .intro-curtain-logo {
+  animation: pfx-logo-expand var(--intro-dur) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.intro-play .intro-curtain-word {
+  animation: pfx-expand var(--intro-dur) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.intro-done .intro-curtain {
+  opacity: 0;
+  pointer-events: none;
+}
+.intro-skip .intro-curtain {
+  display: none !important;
+}
+
+@keyframes pfx-logo-expand {
+  0% {
+    opacity: 0;
+    transform: scale(0.62);
+    filter: drop-shadow(0 0 0px rgba(193, 63, 255, 0));
+  }
+  18% {
+    opacity: 1;
+    transform: scale(0.88);
+    filter: drop-shadow(0 0 18px rgba(193, 63, 255, 0.35));
+  }
+  84% {
+    opacity: 1;
+    transform: scale(1.48);
+    filter: drop-shadow(0 0 36px rgba(193, 63, 255, 0.65));
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.78);
+    filter: drop-shadow(0 0 48px rgba(193, 63, 255, 0));
+  }
+}
+
+@keyframes pfx-expand {
+  0% {
+    opacity: 0;
+    transform: scale(0.68) scaleX(0.9);
+    letter-spacing: -0.03em;
+  }
+  18% {
+    opacity: 1;
+    transform: scale(0.92) scaleX(0.98);
+    letter-spacing: 0em;
+  }
+  84% {
+    opacity: 1;
+    transform: scale(2.35) scaleX(1.24);
+    letter-spacing: 0.16em;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.95) scaleX(1.34);
+    letter-spacing: 0.22em;
+  }
+}
+
+@keyframes pulse-line {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+.scroll-line {
+  transform-origin: top center;
+  animation: pulse-line 2.2s ease-in-out infinite;
+}
+
+/* ============================================================
+   Disciplines — vertical numbered tabs (Gruhas 01–05 pattern)
+   ============================================================ */
+.disc-grid {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--rule);
+}
+.disc-item {
+  border-bottom: 1px solid var(--rule);
+  transition: flex-grow 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s ease;
+}
+.disc-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+}
+.disc-body > div {
+  overflow: hidden;
+}
+.disc-item.is-active .disc-body {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+@media (min-width: 768px) {
+  .disc-grid {
+    flex-direction: row;
+    min-height: 26rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .disc-item {
+    flex: 1 1 0%;
+    border-bottom: 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .disc-item:last-child {
+    border-right: 0;
+  }
+  .disc-item.is-active {
+    flex: 2.6 1 0%;
+  }
+  .disc-vert {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+  }
+  .disc-item.is-active .disc-vert {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   Marquee & Results Ledger
+   ============================================================ */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 46s linear infinite;
+}
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
+}
+.stroke-serif {
+  -webkit-text-stroke: 1px var(--fg);
+  color: transparent;
+  opacity: 0.42;
+}
+
+.ledger-row {
+  background-image: linear-gradient(
+    90deg,
+    rgba(139, 35, 217, 0.09),
+    rgba(139, 35, 217, 0.02)
+  );
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  transition:
+    background-size 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    padding-left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.dark .ledger-row {
+  background-image: linear-gradient(
+    90deg,
+    rgba(193, 63, 255, 0.14),
+    rgba(193, 63, 255, 0.03)
+  );
+}
+.ledger-row:hover,
+.ledger-row:focus-visible {
+  background-size: 100% 100%;
+  padding-left: 0.75rem;
+  outline: none;
+}
+
+.tier-dot {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  margin-left: 0.35rem;
+  vertical-align: super;
+}
+.tier-gold {
+  background-color: #c9a227;
+}
+.tier-silver {
+  background-color: #a3a3b2;
+}
+.tier-bronze {
+  background-color: #b0703c;
+}
+.tier-outline {
+  border: 1.5px solid var(--muted);
+}
+
+/* ============================================================
+   Builds — sticky tilted cards (Gruhas Spotlight pattern)
+   ============================================================ */
+.build-card {
+  --tilt: -1.6deg;
+  --straighten: 0;
+  transform: rotate(calc(var(--tilt) * (1 - var(--straighten))));
+  transition:
+    transform 0.25s ease-out,
+    border-color 0.35s ease;
+  will-change: transform;
+}
+.build-card[data-tilt="right"] {
+  --tilt: 1.6deg;
+}
+.build-card:hover {
+  border-color: var(--accent);
+}
+@media (max-width: 767px) {
+  .build-card {
+    transform: none !important;
+  }
+}
+
+/* Interactive topology chain on client lab cards */
+.topo-node {
+  position: relative;
+  transition:
+    border-color 0.35s ease,
+    color 0.35s ease,
+    background-color 0.35s ease;
+}
+.topo-line {
+  position: relative;
+  height: 1px;
+  flex: 1 1 2rem;
+  background: var(--rule);
+  overflow: hidden;
+}
+.topo-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: translateX(-102%);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--step, 0) * 140ms);
+}
+.build-card:hover .topo-line::after,
+.build-card:focus-within .topo-line::after {
+  transform: translateX(0);
+}
+.build-card:hover .topo-dot,
+.build-card:focus-within .topo-dot {
+  background-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+@keyframes caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.caret-blink {
+  display: inline-block;
+  width: 0.5ch;
+  height: 1em;
+  background-color: var(--accent);
+  vertical-align: -0.12em;
+  margin-left: 0.25rem;
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+/* ============================================================
+   The Pack — expandable rows
+   ============================================================ */
+.pack-bio {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+}
+.pack-bio > div {
+  overflow: hidden;
+}
+.pack-row:hover .pack-bio,
+.pack-row:focus-within .pack-bio,
+.pack-row.is-open .pack-bio {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+/* ============================================================
+   Menu — full-screen on mobile, compact popover card on laptop
+   ============================================================ */
+@media (max-width: 767px) {
+  body.menu-open > header {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.menu-overlay {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.menu-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.menu-backdrop {
+  background: rgba(8, 4, 13, 0.28);
+}
+
+/* Mobile (<768px): full-screen overlay */
+.menu-panel {
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem 1.25rem;
+  transform: translateY(-0.75rem);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow-y: auto;
+}
+.menu-overlay.is-open .menu-panel {
+  transform: translateY(0);
+}
+
+.menu-link-title {
+  font-size: 2.25rem;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+/* Laptop / Desktop (>=768px): compact floating card anchored top-right */
+@media (min-width: 768px) {
+  .menu-panel {
+    position: absolute;
+    top: 4.75rem;
+    right: clamp(1.25rem, 4vw, 4rem);
+    width: 20.5rem;
+    height: auto;
+    max-height: calc(100vh - 6rem);
+    padding: 1.35rem 1.5rem;
+    border: 1px solid var(--rule);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  }
+  .menu-link-title {
+    font-size: 1.75rem;
+  }
+}
+
+.roll-link {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.02;
+}
+.roll-link > span {
+  display: inline-block;
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.roll-link::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  color: var(--accent);
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.roll-link:hover > span,
+.roll-link:focus-visible > span,
+.group:hover .roll-link > span,
+.group:focus-visible .roll-link > span {
+  transform: translateY(-100%);
+}
+.roll-link:hover::after,
+.roll-link:focus-visible::after,
+.group:hover .roll-link::after,
+.group:focus-visible .roll-link::after {
+  transform: translateY(-100%);
+}
+
+/* ============================================================
+   Fox-run easter egg (triggered by typing "fox" — see fox-run.njk)
+   ============================================================ */
+.fox-run-sprite {
+  position: fixed;
+  top: 40%;
+  left: -60px;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+}
+.fox-run-sprite.fox-run-active {
+  animation: fox-run 2.4s linear forwards;
+}
+@keyframes fox-run {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(calc(100vw + 60px));
+  }
+}
+
+/* ============================================================
+   Reduced motion — disables all transforms, transitions & loops
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .intro-curtain {
+    display: none !important;
+  }
+  .rule-draw,
+  [data-reveal="words"] .w > span,
+  [data-reveal="up"],
+  .build-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+  .fox-run-sprite.fox-run-active {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}

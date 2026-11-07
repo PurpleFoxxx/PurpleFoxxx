@@ -1,0 +1,46 @@
+<div class="border-t border-rule">
+  {% for m in team %}
+    <article
+      id="{{ m.id }}"
+      class="border-b border-rule py-7 md:py-9 scroll-mt-24 grid grid-cols-1 md:grid-cols-12 items-baseline gap-4"
+      data-decrypt-trigger
+      data-reveal="up"
+    >
+      <span class="md:col-span-1 font-mono text-label uppercase text-accent">
+        /{{ m.index }}
+      </span>
+
+      <h3
+        class="md:col-span-5 font-display text-display-sm md:text-display leading-none tracking-tight"
+        data-decrypt
+        data-text="{{ m.handle }}"
+        aria-label="{{ m.handle }}"
+      >
+        {{ m.handle }}
+      </h3>
+
+      <p class="md:col-span-4 font-mono text-label uppercase text-muted">
+        {{ m.role }}
+      </p>
+
+      <div class="md:col-span-2 md:text-right font-mono text-label uppercase space-x-5">
+        <a
+          href="{{ m.github }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-accent transition-colors"
+        >
+          GitHub
+        </a>
+        <a
+          href="{{ m.linkedin }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-accent transition-colors"
+        >
+          LinkedIn
+        </a>
+      </div>
+    </article>
+  {% endfor %}
+</div>

@@ -1,0 +1,14 @@
+{
+  "name": "PurpleFoxxx",
+  "short_name": "PurpleFoxxx",
+  "icons": [
+    {
+      "src": "/assets/images/logo-dark.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#14061f",
+  "background_color": "#fbf7ef",
+  "display": "standalone"
+}

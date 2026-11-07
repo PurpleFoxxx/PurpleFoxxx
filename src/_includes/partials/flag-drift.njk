@@ -1,0 +1,310 @@
+<canvas id="flag-rain" aria-hidden="true"></canvas>
+
+<script>
+(function () {
+  var canvas = document.getElementById("flag-rain");
+  var ctx = canvas.getContext("2d");
+
+  var FLAGS = [
+    "PURP{r3c0n_1s_h4lf_th3_j0b}",
+    "HTB{p1v0t_4nd_pr3v41l}",
+    "THM{n0t_4ll_wh0_w4nd3r}",
+    "XPL8{ch41n_th3_bugs}",
+    "RAIT{p4ck3t_wh1sp3r3r}",
+    "SAKEC{qu13t_3num3r4t10n}",
+    "PURP{f0x_1n_th3_l0gs}",
+    "HTB{r00t_by_m1dn1ght}",
+    "THM{f1rst_bl00d}",
+    "XPL8{n0_p4tch_n0_p34c3}",
+    "RAIT{sh3ll_0r_n0th1ng}",
+    "SAKEC{tr4c3_th3_thr3ad}"
+  ];
+
+  var FONT_SIZE = 16;
+  var LINE_GAP = 1.18;
+  var BG_COLOR = "20, 6, 31";
+
+  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var columns = [];
+  var running = false;
+  var rafId = 0;
+  var lastTime = 0;
+
+  function rand(min, max) {
+    return min + Math.random() * (max - min);
+  }
+
+  function choice(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function pickFlag() {
+    return choice(FLAGS);
+  }
+
+  function isDarkMode() {
+    return document.documentElement.classList.contains("dark");
+  }
+
+  function randomColorProfile() {
+    // 50% classic purple family, 50% nearby shades
+    var useClassicPurple = Math.random() < 0.5;
+
+    var profiles = [
+      {
+        name: "purple",
+        hue: rand(268, 290),
+        sat: rand(68, 95),
+        light: rand(38, 57)
+      },
+      {
+        name: "violet",
+        hue: rand(286, 305),
+        sat: rand(58, 88),
+        light: rand(40, 58)
+      },
+      {
+        name: "indigo",
+        hue: rand(230, 250),
+        sat: rand(50, 80),
+        light: rand(40, 58)
+      },
+      {
+        name: "magenta",
+        hue: rand(308, 330),
+        sat: rand(62, 94),
+        light: rand(40, 56)
+      },
+      {
+        name: "periwinkle",
+        hue: rand(225, 240),
+        sat: rand(38, 72),
+        light: rand(55, 72)
+      },
+      {
+        name: "burgundy",
+        hue: rand(338, 355),
+        sat: rand(40, 78),
+        light: rand(34, 50)
+      },
+      {
+        name: "mauve",
+        hue: rand(296, 316),
+        sat: rand(28, 58),
+        light: rand(52, 72)
+      }
+    ];
+
+    var profile;
+
+    if (useClassicPurple) {
+      profile = profiles[0];
+    } else {
+      profile = choice(profiles.slice(1));
+    }
+
+    // Some columns get subtle neon, not all.
+    var neon = Math.random() < 0.22;
+
+    var hue = profile.hue;
+    var sat = profile.sat;
+    var light = profile.light;
+
+    if (neon) {
+      sat = Math.min(100, sat + rand(8, 18));
+      light = Math.min(68, light + rand(4, 10));
+    }
+
+    return {
+      name: profile.name,
+      hue: hue,
+      sat: sat,
+      light: light,
+      neon: neon,
+      color: "hsl(" + hue.toFixed(1) + ", " + sat.toFixed(1) + "%, " + light.toFixed(1) + "%)",
+      glow: "hsla(" + hue.toFixed(1) + ", " + Math.min(100, sat + 6).toFixed(1) + "%, " + Math.min(78, light + 8).toFixed(1) + "%, " + (neon ? 0.42 : 0.22) + ")"
+    };
+  }
+
+  function resize() {
+    var dpr = window.devicePixelRatio || 1;
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    canvas.style.position = "fixed";
+    canvas.style.inset = "0";
+    canvas.style.pointerEvents = "none";
+    canvas.style.zIndex = "-10";
+    canvas.style.display = isDarkMode() && !reducedMotion ? "block" : "none";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.font = FONT_SIZE + "px JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
+    ctx.textBaseline = "top";
+
+    buildColumns();
+  }
+
+  function buildColumns() {
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    var spacing = FONT_SIZE * 1.25;
+    var count = Math.max(1, Math.ceil(w / spacing));
+
+    columns = [];
+    for (var i = 0; i < count; i++) {
+      var palette = randomColorProfile();
+      columns.push({
+        x: i * spacing + rand(-5, 5),
+        y: rand(-h * 2.2, -FONT_SIZE * 3),
+        speed: rand(24, 64),
+        flag: pickFlag(),
+        cooldown: rand(0, 2600),
+        drift: rand(-0.35, 0.35),
+        phase: rand(0, Math.PI * 2),
+        color: palette.color,
+        glow: palette.glow,
+        neon: palette.neon,
+        hue: palette.hue,
+        sat: palette.sat,
+        light: palette.light
+      });
+    }
+  }
+
+  function drawChar(ch, x, y, alpha, glow, isHead, col) {
+    ctx.fillStyle = col.color;
+    ctx.shadowColor = glow ? col.glow : "rgba(0,0,0,0)";
+    ctx.shadowBlur = glow ? (col.neon ? (isHead ? 10 : 6) : (isHead ? 7 : 3)) : 0;
+    ctx.globalAlpha = alpha;
+    ctx.fillText(ch, x, y);
+    ctx.globalAlpha = 1;
+  }
+
+  function drawFlagColumn(col) {
+    var flag = col.flag;
+    var len = flag.length;
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    var charStep = FONT_SIZE * LINE_GAP;
+    var mid = (len - 1) / 2;
+
+    for (var i = 0; i < len; i++) {
+      var ch = flag[i];
+      var y = col.y + i * charStep;
+      var x = col.x + Math.sin(col.phase + i * 0.25) * 0.7 + col.drift;
+
+      if (x < -50 || x > w + 50) continue;
+      if (y < -FONT_SIZE * 3 || y > h + FONT_SIZE * 3) continue;
+
+      var dist = Math.abs(i - mid);
+      var normalized = mid === 0 ? 1 : 1 - (dist / mid);
+      normalized = Math.max(0, normalized);
+
+      // Dim overall. Strongest around the middle. Neon columns get a bit more life.
+      var alpha = 0.035 + Math.pow(normalized, 1.65) * (col.neon ? 0.80 : 0.68);
+
+      var isHead = i === 0;
+      if (isHead) alpha = Math.min(col.neon ? 0.90 : 0.78, alpha + (col.neon ? 0.10 : 0.06));
+
+      var glow = normalized > 0.58 || isHead;
+      if (col.neon && normalized > 0.42) glow = true;
+
+      drawChar(ch, x, y, alpha, glow, isHead, col);
+    }
+  }
+
+  function respawnColumn(col) {
+    var h = window.innerHeight;
+    var palette = randomColorProfile();
+
+    col.flag = pickFlag();
+    col.speed = rand(24, 64);
+    col.x = col.x + rand(-8, 8);
+    col.y = rand(-h * 2.2, -FONT_SIZE * 3);
+    col.cooldown = rand(0, 2800);
+    col.drift = rand(-0.35, 0.35);
+    col.phase = rand(0, Math.PI * 2);
+
+    col.color = palette.color;
+    col.glow = palette.glow;
+    col.neon = palette.neon;
+    col.hue = palette.hue;
+    col.sat = palette.sat;
+    col.light = palette.light;
+  }
+
+  function frame(ts) {
+    if (!running) return;
+
+    if (!lastTime) lastTime = ts;
+    var dt = Math.min(0.05, (ts - lastTime) / 1000);
+    lastTime = ts;
+
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+
+    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = "rgba(" + BG_COLOR + ",0.06)";
+    ctx.fillRect(0, 0, w, h);
+
+    for (var i = 0; i < columns.length; i++) {
+      var col = columns[i];
+
+      if (col.cooldown > 0) {
+        col.cooldown -= dt * 1000;
+        continue;
+      }
+
+      col.y += col.speed * dt;
+      drawFlagColumn(col);
+
+      var flagHeight = col.flag.length * FONT_SIZE * LINE_GAP;
+      if (col.y > h + flagHeight + 140) {
+        respawnColumn(col);
+      }
+    }
+
+    rafId = requestAnimationFrame(frame);
+  }
+
+  function start() {
+    if (running || reducedMotion || !isDarkMode()) return;
+    running = true;
+    canvas.style.display = "block";
+    lastTime = 0;
+
+    ctx.fillStyle = "rgb(" + BG_COLOR + ")";
+    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+    rafId = requestAnimationFrame(frame);
+  }
+
+  function stop() {
+    running = false;
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = 0;
+    canvas.style.display = "none";
+  }
+
+  function syncTheme() {
+    if (isDarkMode()) start();
+    else stop();
+  }
+
+  window.addEventListener("resize", resize);
+
+  new MutationObserver(syncTheme).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"]
+  });
+
+  resize();
+  syncTheme();
+})();
+</script>

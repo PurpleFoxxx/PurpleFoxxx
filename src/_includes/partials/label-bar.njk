@@ -1,0 +1,21 @@
+{% macro labelBar(index, title, meta, linkHref, linkLabel) %}
+<div class="mb-10 md:mb-14" data-reveal="up">
+  <div class="flex flex-wrap items-baseline justify-between gap-4 pb-3 font-mono text-label uppercase">
+    <div class="flex items-baseline gap-3">
+      {% if index %}<span class="text-accent">{{ index }}</span>{% endif %}
+      <span>{{ title }}</span>
+    </div>
+    <div class="flex items-baseline gap-6">
+      {% if meta %}
+        <span class="text-muted">{{ meta }}</span>
+      {% endif %}
+      {% if linkHref and linkLabel %}
+        <a href="{{ linkHref }}" class="text-fg hover:text-accent underline underline-offset-4 decoration-rule hover:decoration-accent transition-colors">
+          {{ linkLabel }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="h-px bg-rule rule-draw"></div>
+</div>
+{% endmacro %}

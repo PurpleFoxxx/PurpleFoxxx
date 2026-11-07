@@ -1,0 +1,33 @@
+<div
+  id="fox-run-sprite"
+  class="fox-run-sprite"
+  aria-hidden="true"
+>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-10 h-10 text-accent">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M4 9l3-5 5 3 5-3 3 5-2 6-6 4-6-4-2-6z"/>
+    <circle cx="9.5" cy="12" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="14.5" cy="12" r="1" fill="currentColor" stroke="none"/>
+  </svg>
+</div>
+
+<script>
+  (function () {
+    var buffer = "";
+    var target = "fox";
+    var triggered = false;
+
+    window.addEventListener("keydown", function (e) {
+      if (triggered || e.key.length !== 1) return;
+      buffer = (buffer + e.key.toLowerCase()).slice(-target.length);
+      if (buffer === target) {
+        triggered = true;
+        var sprite = document.getElementById("fox-run-sprite");
+        sprite.classList.add("fox-run-active");
+        sprite.addEventListener("animationend", function () {
+          sprite.classList.remove("fox-run-active");
+          triggered = false;
+        }, { once: true });
+      }
+    });
+  })();
+</script>

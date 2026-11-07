@@ -1,0 +1,61 @@
+<div class="space-y-12 md:space-y-16">
+  {% for item in work.clientWork %}
+    <article
+      class="build-card md:sticky border border-rule bg-card-bg text-card-fg p-8 md:p-14"
+      style="top: {{ 5.25 + loop.index0 * 1.6 }}rem"
+      data-tilt="{% if loop.index is odd %}left{% else %}right{% endif %}"
+      data-reveal="up"
+    >
+      <div class="flex flex-wrap items-baseline justify-between gap-4 pb-6 border-b border-rule font-mono text-label uppercase">
+        <div class="flex flex-wrap items-baseline gap-3">
+          <span class="text-accent">{{ item.code }}</span>
+          <span>·</span>
+          <span>{{ item.scope }}</span>
+        </div>
+        <div class="flex flex-wrap items-baseline gap-3 text-muted">
+          <span class="px-2 py-0.5 border border-rule text-fg/80">{{ item.sector }}</span>
+          <span>{{ item.client }}{% if item.date %} · {{ item.date | monthYear }}{% endif %}</span>
+        </div>
+      </div>
+
+      <div class="mt-8 md:mt-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+        <div class="md:col-span-7">
+          <h3 class="font-display text-display-sm leading-none">
+            {{ item.title }}
+          </h3>
+          <p class="mt-6 font-display italic text-2xl md:text-3xl text-fg/90 leading-snug">
+            “{{ item.brief }}”
+          </p>
+        </div>
+
+        <div class="md:col-span-5 md:border-l md:border-rule md:pl-8">
+          <p class="text-sm text-muted leading-relaxed">
+            {{ item.summary }}
+          </p>
+          <ul class="mt-6 flex flex-wrap gap-2">
+            {% for tag in item.stack %}
+              <li class="px-2.5 py-1 border border-rule font-mono text-label uppercase text-muted">
+                {{ tag }}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      {% if item.topology %}
+        <div class="mt-8 pt-6 border-t border-rule flex flex-wrap sm:flex-nowrap items-center gap-3 font-mono text-label uppercase">
+          <span class="text-muted mr-2">Path //</span>
+          {% for node in item.topology %}
+            <div class="topo-node inline-flex items-center gap-2 px-3 py-1.5 border border-rule text-fg/90">
+              <span class="topo-dot w-1.5 h-1.5 rounded-full bg-muted transition-all"></span>
+              <span>0{{ loop.index }} {{ node }}</span>
+            </div>
+            {% if not loop.last %}
+              <div class="topo-line hidden sm:block" style="--step:{{ loop.index0 }}" aria-hidden="true"></div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </article>
+  {% endfor %}
+</div>

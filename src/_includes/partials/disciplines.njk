@@ -1,0 +1,34 @@
+<div class="disc-grid">
+  {% for d in site.disciplines %}
+    <article
+      class="disc-item p-6 md:p-10 {% if loop.first %}is-active{% endif %}"
+      data-disc-item
+    >
+      <button
+        type="button"
+        class="w-full text-left flex md:flex-col items-baseline justify-between gap-4 focus:outline-none group"
+        aria-expanded="{% if loop.first %}true{% else %}false{% endif %}"
+        data-disc-btn
+      >
+        <span class="font-mono text-label uppercase text-accent">{{ d.n }}</span>
+        <span class="disc-vert font-display text-3xl md:text-5xl tracking-tight group-hover:text-accent transition-colors">
+          {{ d.short }}
+        </span>
+      </button>
+
+      <div class="disc-body mt-6 md:mt-10">
+        <div>
+          <p class="font-mono text-label uppercase text-muted mb-3">
+            {{ d.meta }}
+          </p>
+          <h3 class="font-display text-2xl md:text-3xl mb-3">
+            {{ d.title }}
+          </h3>
+          <p class="text-muted leading-relaxed max-w-md">
+            {{ d.body }}
+          </p>
+        </div>
+      </div>
+    </article>
+  {% endfor %}
+</div>

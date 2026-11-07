@@ -1,0 +1,23 @@
+---
+layout: layouts/page.njk
+title: "404"
+permalink: 404.html
+eleventyExcludeFromCollections: true
+---
+
+<div class="frame min-h-[65vh] flex flex-col justify-center">
+  <p class="font-mono text-label uppercase text-accent">
+    access_check --path {{ "{{ request.path }}" }}
+  </p>
+  <h1 class="mt-4 font-display text-display-xl leading-none" data-reveal="words">
+    403: wrong door
+  </h1>
+  <div class="mt-10 pt-8 border-t border-rule flex flex-col md:flex-row md:items-baseline justify-between gap-6">
+    <p class="text-lede text-muted max-w-xl">
+      Looks like you tried to break in the wrong door. Nothing's here. The page you're after either moved or never existed.
+    </p>
+    <a href="/" class="font-mono text-label uppercase hover:text-accent transition-colors">
+      cd /
+    </a>
+  </div>
+</div>

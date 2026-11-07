@@ -1,0 +1,84 @@
+---
+layout: layouts/base.njk
+title: Home
+description: "PurpleFoxxx builds custom Boot2Root cyber labs for industry and colleges, authors original CTF challenges, and runs competitions end to end."
+---
+
+{% from "partials/label-bar.njk" import labelBar %}
+{% from "partials/ledger.njk" import ledger %}
+
+{# Section A: Intro (Night band) #}
+{% include "partials/intro.njk" %}
+
+{# Section B: Perspective + Key Figures #}
+<section class="section-pad">
+  <div class="frame">
+    {{ labelBar("01", "Where We Come From", site.location, "/about/", "Our story") }}
+    <p
+      class="font-sans font-light text-statement max-w-4xl"
+      data-reveal="words"
+    >
+      {{ site.statement }}
+    </p>
+
+    <div class="mt-16 md:mt-24 pt-12 border-t border-rule">
+      {% include "partials/numbers.njk" %}
+    </div>
+  </div>
+</section>
+
+{# Section C: What We Do (3 vertical tabs) #}
+<section class="section-pad pt-0">
+  <div class="frame">
+    {{ labelBar("02", "What We Do", "Challenges · Event Ops · Cyber Labs") }}
+    {% include "partials/disciplines.njk" %}
+  </div>
+</section>
+
+{# Section D: Client Work (Night contrast band, 3 delivered labs across industry & college) #}
+<section class="band section-pad">
+  <div class="frame">
+    {{ labelBar("03", "Client Work", (work.clientWork | length) ~ " delivered setups", "/work/", "All labs & R&D") }}
+    <div class="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <h2 class="font-display text-display leading-none" data-reveal="words">
+        Delivered Cyber Labs
+      </h2>
+      <p class="text-muted max-w-sm text-sm leading-relaxed">
+        Built for security firms and college campuses. Always ready for the next challenge.
+      </p>
+    </div>
+    {% include "partials/builds.njk" %}
+  </div>
+</section>
+
+{# Section E: Selected Scoreboard (2 Landmark + 2 Recent) #}
+<section class="section-pad">
+  <div class="frame">
+    {{ labelBar("04", "Scoreboard Roots", "2 landmark podiums + 2 recent", "/achievements/", "Full archive [" ~ (achievements | length) ~ "]") }}
+    <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <h2 class="font-display text-display leading-none" data-reveal="words">
+        Before We Built the Labs
+      </h2>
+      <p class="text-muted max-w-sm text-sm leading-relaxed">
+        We rarely play now, but these scoreboards are where we learned the craft.
+      </p>
+    </div>
+    {{ ledger(collections.featuredAchievements) }}
+  </div>
+</section>
+
+{# Section F: The Pack / The Foxxxes #}
+<section class="section-pad pt-0">
+  <div class="frame">
+    {{ labelBar("05", "The Pack", (team | length) ~ " co-founders", "/team/", "Meet the Foxxxes") }}
+    <div class="mb-10 md:mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <h2 class="font-display text-display leading-none" data-reveal="words">
+        The Foxxxes
+      </h2>
+      <p class="font-mono text-label uppercase text-muted">
+        Four handles · One pack
+      </p>
+    </div>
+    {% include "partials/pack.njk" %}
+  </div>
+</section>

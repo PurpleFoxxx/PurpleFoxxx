@@ -1,0 +1,26 @@
+<header class="fixed top-0 inset-x-0 z-40 mix-blend-difference text-[#f3eee6] pointer-events-none transition-opacity duration-200">
+  <div class="frame h-20 flex items-center justify-between">
+    <a
+      href="/"
+      class="pointer-events-auto font-display text-2xl md:text-3xl tracking-tight leading-none"
+      aria-label="{{ site.name }} home"
+    >
+      {{ site.name }}
+    </a>
+
+    <nav aria-label="Primary" class="pointer-events-auto flex items-center gap-6 font-mono text-label uppercase">
+      {% include "partials/theme-toggle.njk" %}
+
+      <button
+        type="button"
+        class="px-3.5 py-1.5 border border-[#f3eee6]/40 hover:bg-[#f3eee6] hover:text-[#0d0a12] transition-colors"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="site-menu"
+        data-menu-toggle
+      >
+        <span data-menu-label>Menu</span>
+      </button>
+    </nav>
+  </div>
+</header>

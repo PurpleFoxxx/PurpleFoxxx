@@ -1,0 +1,35 @@
+<section
+  class="band relative min-h-[88vh] flex flex-col justify-between pt-28 pb-10 overflow-hidden"
+  data-intro
+>
+  <!-- Opening curtain: Fox crest + expanding PurpleFoxxx (~3.8s first visit, ~2.5s every refresh) -->
+  <div class="intro-curtain" data-intro-curtain aria-hidden="true">
+    <div class="intro-curtain-stage">
+      <img
+        src="/assets/images/logo-dark.png"
+        alt=""
+        width="160"
+        height="160"
+        decoding="sync"
+        fetchpriority="high"
+        class="intro-curtain-logo"
+      >
+      <span class="intro-curtain-word font-display">{{ site.name }}</span>
+    </div>
+  </div>
+
+  <div></div>
+
+  <div class="frame my-auto py-16">
+    <h1
+      class="font-display text-display-xl leading-[0.92] tracking-tight max-w-6xl"
+      data-reveal="words"
+    >
+      CTFs. <em class="italic text-accent">Cyber Labs.</em> Event Ops.
+    </h1>
+  </div>
+
+  <div class="frame flex items-end justify-end font-mono text-label uppercase text-muted">
+    <span class="h-10 w-px bg-fg/40 scroll-line" aria-hidden="true"></span>
+  </div>
+</section>

@@ -1,0 +1,59 @@
+{
+  "clientWork": [
+    {
+      "id": "ad-boot2root-csi",
+      "code": "LAB/01",
+      "title": "Active Directory Boot2Root (3 Machines)",
+      "client": "Cyber Secured India",
+      "sector": "Cybersecurity Industry",
+      "date": "2025-08-01",
+      "scope": "Lab Design & Live Hosting",
+      "topology": ["Foothold", "Internal Pivot", "Domain Admin"],
+      "summary": "Built and hosted a three-machine Active Directory lab for Cyber Secured India's live competition.",
+      "brief": "Three linked Windows hosts, from first foothold to domain admin.",
+      "stack": ["Active Directory", "3 Machines", "Kerberos", "Live Hosting"],
+      "status": "delivered"
+    },
+    {
+      "id": "campus-cyber-lab",
+      "code": "LAB/02",
+      "title": "Campus Cyber Lab Suite (~15 Labs)",
+      "client": "Engineering College (Confidential)",
+      "sector": "Educational Institution",
+      "date": null,
+      "scope": "Multi-OS Lab Suite",
+      "topology": ["Linux Boxes", "Windows Hosts", "Android Targets"],
+      "summary": "Designed and built around 15 distinct hands-on labs across Linux, Windows, and Android for an engineering college.",
+      "brief": "Around 15 hands-on labs spanning Linux, Windows, and Android.",
+      "stack": ["~15 Labs", "Linux", "Windows", "Android"],
+      "status": "delivered"
+    },
+    {
+      "id": "windows-boot2root-csi",
+      "code": "LAB/03",
+      "title": "Standalone Windows Boot2Root",
+      "client": "Cyber Secured India",
+      "sector": "Cybersecurity Industry",
+      "date": null,
+      "scope": "Target Engineering",
+      "topology": ["Recon", "Service Abuse", "SYSTEM"],
+      "summary": "Developed a single-host Windows target for Cyber Secured India focused on enumeration and local privilege escalation.",
+      "brief": "A standalone Windows box built around real service flaws.",
+      "stack": ["Windows", "Boot2Root", "Privilege Escalation"],
+      "status": "delivered"
+    }
+  ],
+  "projects": [
+    {
+      "id": "hardware-forensic-suite",
+      "code": "R&D/01",
+      "title": "Hardware Forensic Suite",
+      "category": "Internal R&D",
+      "summary": "An in-house tool for pulling volatile forensic artifacts cleanly across Windows and Linux.",
+      "brief": "Fast live-acquisition utility for Windows and Linux.",
+      "platforms": ["Windows", "Linux"],
+      "stack": ["Live Forensics", "Windows", "Linux"],
+      "status": "wip"
+    }
+  ]
+}
